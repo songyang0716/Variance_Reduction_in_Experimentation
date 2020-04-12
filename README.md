@@ -6,4 +6,4 @@ A collections of variance reduction techniques that could be used in A/B testing
   2.Stratification <br/>
   3.Conditioning <br/>
   4.Control Variates <br/>
-  5.Advanced Variance Reudction...<br/>
+  5.Advanced Approaches...<br/>
