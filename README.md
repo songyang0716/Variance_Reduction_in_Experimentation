@@ -1,9 +1,9 @@
-### Variance Reduction in Experimentation
+### Variance Reduction
 A collections of variance reduction techniques that could be used in A/B testing
 
-### Approaches include 
-  1.Antithetics
-  2.Stratification
-  3.Conditioning
-  4.Control Variates
-  5.Advanced Variance Reudction...
+### Approaches include <br/>
+  1.Antithetics <br/>
+  2.Stratification <br/>
+  3.Conditioning <br/>
+  4.Control Variates <br/>
+  5.Advanced Variance Reudction...<br/>
