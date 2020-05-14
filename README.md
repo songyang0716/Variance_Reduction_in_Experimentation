@@ -1,5 +1,5 @@
 ### Variance Reduction
-A collection of variance reduction techniques that could be used in A/B testing
+A collection of variance reduction techniques in Monte Carlos Simulation, and some of them could be used in A/B testing
 
 ### Approaches include <br/>
 1. Antithetics <br/>
