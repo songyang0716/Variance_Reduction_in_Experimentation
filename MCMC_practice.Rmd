@@ -1,0 +1,49 @@
+---
+title: "MCMC Practice Notebook"
+author: "yangsong"
+date: "10/25/2020"
+output:
+  html_document:
+    toc: true
+    theme: united
+---
+
+
+# Expectation of a truncated normal distribution
+## Direct MC simulation
+```{r, message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
+res <- c()
+iter <- 10000
+
+for (i in 1:iter){
+  N <- 100
+  samples <- rnorm(N)
+  res <- c(res, mean(samples > 3))
+}
+
+hist(res, col='skyblue3')
+print(paste("means:", mean(res), sep=" "))
+print(paste("variances:", var(res), sep=" "))
+```
+
+## Importance Sampling
+```{r, message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
+res <- c()
+iter <- 10000
+
+for (i in 1:iter){
+  N <- 100
+  samples <- rnorm(N, mean=4, sd=1)
+  f <- dnorm(samples)
+  g <- dnorm(samples, mean=4, sd=1)
+  h <- samples > 3
+  res <- c(res, mean(f*h/g))
+}
+
+hist(res, col='skyblue3')
+print(paste("means:", mean(res), sep=" "))
+print(paste("variances:", var(res), sep=" "))
+```
+
+- Better performance (low variance) compared with the direct monte carlo simulation
+
