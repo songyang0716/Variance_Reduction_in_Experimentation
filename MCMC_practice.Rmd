@@ -10,13 +10,16 @@ output:
 
 
 # Expectation of a truncated normal distribution
+## Analytic Solution
+- Do the integration of a standard normal pdf with range x > 3. The expected value is 0.00135
+
 ## Direct MC simulation
 ```{r, message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
 res <- c()
 iter <- 10000
 
 for (i in 1:iter){
-  N <- 100
+  N <- 1000
   samples <- rnorm(N)
   res <- c(res, mean(samples > 3))
 }
@@ -32,7 +35,7 @@ res <- c()
 iter <- 10000
 
 for (i in 1:iter){
-  N <- 100
+  N <- 1000
   samples <- rnorm(N, mean=4, sd=1)
   f <- dnorm(samples)
   g <- dnorm(samples, mean=4, sd=1)
