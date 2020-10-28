@@ -67,6 +67,8 @@ n <- c(20,20,20,20,20,20,20,19,19,19,19,18,18,17,20,20,20,20,19,19,18,18,25,24,
        20,20,20,48,19,19,19,22,46,49,20,20,23,19,22,20,20,20,52,46,47,24,14)
 
 x <- seq(0.0001, 0.9999, length.out = 1000)
+
+# Assume prior of beta(1,1)
 bdens <- function(n, y, x){
     dbeta(x, y+1, n-y+1)  
 }
@@ -135,6 +137,35 @@ ggplot(data = df_marg, aes(x = x, y = y)) +
 
 
 ### Sample from the grid
+```{r, message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
+nsamp <- 100
+samp_indices <- sample(length(df_marg$p), size = nsamp,
+                       replace = T, prob = df_marg$p/sum(df_marg$p))
+
+samp_A <- cA[samp_indices[1:nsamp]]
+samp_B <- cB[samp_indices[1:nsamp]]
+
+df_psamp <- mapply(function(a, b, x) dbeta(x, a, b),
+                  samp_A, samp_B, MoreArgs = list(x = x)) %>%
+  as.data.frame() %>% cbind(x) %>% gather(ind, p, -x)
+
+
+indtonum <- function(x) strtoi(substring(x,2))
+plot_psamp <- ggplot(data = subset(df_psamp, indtonum(ind) <= 20)) +
+  geom_line(aes(x = x, y = p, group = ind), color='forestgreen') +
+  labs(x = expression(theta), y = '') +
+  scale_y_continuous(breaks = NULL)
+
+
+df_psampmean <- spread(df_psamp, ind, p) %>% subset(select = -x) %>%
+    rowMeans() %>% data.frame(x = x, p = .)
+plot_psampmean <- ggplot(data = df_psampmean) +
+  geom_line(aes(x = x, y = p), color='forestgreen') +
+  labs(x = expression(theta), y = '') +
+  scale_y_continuous(breaks = NULL)
+
+grid.arrange(plot_psamp, plot_psampmean)
+```
 
 
 
